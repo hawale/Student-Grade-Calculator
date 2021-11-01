@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grades  </title>   
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200&display=swap" rel="stylesheet">  
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto Mono', monospace;
+            letter-spacing: 1.4px;
+            color: #33d9b2;
+        }
+        body{
+            background-image:  linear-gradient(to bottom, rgba(236, 49, 180, 0.6), rgb(51, 217, 178,0.8));
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           
+        }
+        .container{
+            height: 400px;
+            width: 600px;
+            /* background-color: rgb(24, 39, 41);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            box-shadow: 5px 5px 5px black; */
+        }
+        .main{
+            height: 100%;
+            width: 100%;
+            background-color: rgb(24, 39, 41);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            box-shadow: 5px 5px 5px black;
+        }
+        .card{
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            padding: 30px;
+            align-items: center;
+
+        }
+        .Collage{
+          
+            margin-top:0;
+            margin-left: 50px;
+            margin-bottom: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: left;
+            font-size: 30px;
+            font-weight: bold;
+            flex-direction: column;
+        }
+        .Collage div{
+            padding: 5px;
+        }
+        .marks{
+         margin-left: 50px;
+            
+        }
+        .marks input{
+            color: #ddd;
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            box-shadow: 2px blue;
+            border-bottom: 1px solid #666;
+            background-color: rgb(24, 39, 41);
+            outline: none;
+            cursor: pointer;
+            transition: border-color .2s;
+        }
+        .marks p{
+            font-size: 10px;
+            color: red;
+        }
+        .hidden{
+         height: 0px;
+         width: 0px;
+         overflow: hidden;
+
+        }
+        #reportCard{
+            height: 100%;
+            width: 100%;
+            font-size: 20px;
+            word-spacing: 5px;
+
+        }
+        .red{
+            color: red;
+        }
+        input:focus{
+            border: none;
+            color: rgb(208, 255, 0);
+            border-bottom-color: #ddd;
+        }
+      
+        .button-menu{
+            position: absolute;
+            display: inline-flex;
+            bottom: -20px;
+            left: 110px;
+
+        }
+        button{
+            margin-left: 50px;
+            margin-top: 10px;
+            background-color: rgb(24, 39, 41);
+           width: 100px;
+           height: 30px;
+           box-shadow: 2px 2px 2px blue;
+
+        }
+        button:active{
+            box-shadow: 5px 5px 5px rgb(212, 24, 212);
+        }
+
+        .refresh{
+            
+            bottom: -20px;
+            left: 300px;
+           margin-top: 0px;
+            padding: 5px;
+           margin-left: 0px;
+           background-color: rgb(24, 39, 41);
+            width: 120px;
+           height: 30px;
+            box-shadow: 2px 2px 2px blue;
+            position: absolute;
+            z-index: 10;
+        }
+        .refresh:active{
+            box-shadow: 5px 5px 5px rgb(212, 24, 212);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="card">
+                <div class="Collage">
+                    <div>Student</div>
+                    <div>Grade</div>
+                    <div>Calculation</div>
+                </div>
+            
+                <div class="marks">
+                    <!-- onsubmit="return validForm()" -->
+                    <form action="#"> 
+                    <input type="text" id="phy" placeholder="PHYSICS" > <br>
+                    <p id="errorPhy"></p>
+                    <input type="text" id="math" placeholder="MATH"  maxlength="3" ><br>
+                    <p id="errorMath"></p>
+                    <input type="text" id="sci" placeholder="SCIENCE"   maxlength="3" ><br>
+                    <p id="errorSci"></p>
+                    <input type="text" id="his" placeholder="HISTORY"  maxlength="3" ><br>
+                    <p id="errorHis"></p>
+                   <div class="button-menu">
+                    <button onclick="validForm()">Grads</button>
+                    <button type="reset">Reset</button>
+                   </div>
+                </form>
+                 </div>
+     
+            
+            
+              <div id="reportCard">
+
+
+            </div>
+        </div>
+        </div>
+    </div>
+ 
+
+    <script>
+
+
+            // let phyMarks = document.getElementById("phy").value;
+            // let mathMarks = document.getElementById("math").value;
+            // let sciMarks = document.getElementById("sci").value;
+            // let hisMarks = document.getElementById("his").value;
+
+    //     let calculate = () =>{
+
+    //         let Grade ="";
+    //         let total = parseFloat(phyMarks) + parseFloat(mathMarks)+  parseFloat(sciMarks)+ parseFloat(hisMarks);
+      
+    //         let percentage = (total/400)*100;
+          
+
+    //         if(percentage<=100 && percentage>=80){
+    //             Grade = "A";
+    //         }else if(percentage<=79 && percentage>=60){
+    //             Grade ="B";
+    //         }else if(percentage<=59 && percentage>=40){
+    //             Grade ="C";
+    //         }else{
+    //             Grade="F";
+    //         }
+
+            
+    //          if(percentage>=40){
+    //            document.querySelector(".marks").classList.add("hidden");
+    //             document.getElementById('reportCard').innerHTML=`Out of 400 your total is ${total} and Percentage is ${percentage}% <br> Your  grade is ${Grade}. You are Pass <br> <input type="button" class="refresh" value="Check Other" onClick="refreshPage()"> `;
+    //         }else{
+    //             document.querySelector(".marks").classList.add("hidden");
+    //             document.getElementById("reportCard").classList.add("red");
+    //             document.getElementById('reportCard').innerHTML=`Out of 400 your total is ${total} and Percentage is ${percentage}% <br> Your  grade is ${Grade}. You are Fail <br> <input type="button" class="refresh" value="Check Other" onClick="refreshPage()"> `;
+             
+    //         }
+
+            
+           
+    //     }
+
+    //     function refreshPage() {
+    //     if (confirm("Are you sure, want to Check Other?")) {
+    //         location.reload();
+    //     }
+    // }
+    flag =1;
+   function validForm (){
+        let errorPhy = document.getElementById("errorPhy");
+        let errorMath = document.getElementById("errorMath");
+        let errorSci = document.getElementById("errorSci");
+        let errorHis = document.getElementById("errorHis");
+
+        let phyMarks = document.getElementById("phy").value;
+            let mathMarks = document.getElementById("math").value;
+            let sciMarks = document.getElementById("sci").value;
+            let hisMarks = document.getElementById("his").value;
+
+        if(phyMarks==""){
+            errorPhy.innerHTML="Please Enter Your Marks !";
+            flag=0;
+        }
+        else if(phyMarks >100 ){
+            errorPhy.innerHTML="Maximum Number is 100 !";
+            flag=0;
+        }else if(isNaN(phyMarks)){
+            errorPhy.innerHTML="Please Enter in Digit !";
+            flag=0;
+        }
+        else{
+            errorPhy.innerHTML="";
+            flag=1;
+        }
+       
+
+
+         if(mathMarks==""){
+            errorMath.innerHTML="Please Enter Your Marks !";
+         flag=0;
+        }
+        else if(mathMarks>100 ){
+            errorMath.innerHTML="Maximum Number is 100 !";
+            flag=0;
+        }else if(isNaN(mathMarks)){
+            errorMath.innerHTML="Please Enter in Digit !";
+            flag=0;
+        }
+        else{
+            errorMath.innerHTML="";
+            flag=1;
+        }
+        
+
+
+         if(sciMarks==""){
+            errorSci.innerHTML="Please Enter Your Marks !";
+         flag=0;
+        }
+        else if(sciMarks>100 ){
+            errorSci.innerHTML="Maximum Number is 100 !";
+            flag=0;
+        }else if(isNaN(sciMarks)){
+            errorSci.innerHTML="Please Enter in Digit !";
+            flag=0;
+        }
+        else{
+            errorSci.innerHTML="";
+            flag=1;
+        }
+     
+
+
+
+         if(hisMarks==""){
+            errorHis.innerHTML="Please Enter Your Marks !";
+         flag=0;
+        }
+        else if(hisMarks>100 ){
+            errorHis.innerHTML="Maximum Number is 100 !";
+            flag=0;
+        }else if(isNaN(hisMarks)){
+            errorHis.innerHTML="Please Enter in Digit !";
+            flag=0;
+        }
+        else{
+            errorHis.innerHTML="";
+            flag=1;
+        }
+        
+
+
+
+        if(flag){ 
+
+let Grade ="";
+let total = parseFloat(phyMarks) + parseFloat(mathMarks)+  parseFloat(sciMarks)+ parseFloat(hisMarks);
+
+let percentage = (total/400)*100;
+
+
+if(percentage<=100 && percentage>=80){
+    Grade = "A";
+}else if(percentage<=79 && percentage>=60){
+    Grade ="B";
+}else if(percentage<=59 && percentage>=40){
+    Grade ="C";
+}else{
+    Grade="F";
+}
+
+
+ if(percentage>=40){
+   document.querySelector(".marks").classList.add("hidden");
+    document.getElementById('reportCard').innerHTML=`Out of 400 your total is ${total} and Percentage is ${percentage}% <br> Your  grade is ${Grade}. You are Pass <br> <input type="button" class="refresh" value="Check Other" onClick="refreshPage()"> `;
+}else{
+    document.querySelector(".marks").classList.add("hidden");
+    document.getElementById("reportCard").classList.add("red");
+    document.getElementById('reportCard').innerHTML=`Out of 400 your total is ${total} and Percentage is ${percentage}% <br> Your  grade is ${Grade}. You are Fail <br> <input type="button" class="refresh" value="Check Other" onClick="refreshPage()"> `;
+ 
+}
+
+
+
+
+
+
+
+        }
+
+        }
+        function refreshPage() {
+if (confirm("Are you sure, want to Check Other?")) {
+location.reload();
+}
+    }
+    </script>
+    
+</body>
+</html>
